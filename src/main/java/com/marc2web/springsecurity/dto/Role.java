@@ -1,35 +1,32 @@
 package com.marc2web.springsecurity.dto;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="role101")
+@Table(name="role")
 public class Role {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "role_id")
+	
 	private Integer id;
 	private String role;
-	@ManyToMany(mappedBy="roles",cascade=CascadeType.ALL)
-	private Set<User> users;
+	
+	@ManyToOne
+	private User user;
 	
 	
-	public Set<User> getUsers() {
-		return users;
+	public User getUsers() {
+		return user;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setUsers(User users) {
+		this.user = users;
 	}
 
 	public Integer getId() {
