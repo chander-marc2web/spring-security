@@ -22,9 +22,17 @@ public class User {
 	private String userName;
 	private String password;
 	private Boolean active;
+	private String role;
 
-	@OneToMany(mappedBy="user")
-	private Set<Role> roles = new HashSet<Role>();
+	
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	public Boolean getActive() {
 		return active;
@@ -74,13 +82,7 @@ public class User {
 		this.password = password;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
-	}
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
 
 	
 
