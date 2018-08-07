@@ -12,23 +12,18 @@
 
 	<div layout:fragment="content" th:remove="tag">
 
-
-
 		<!-- 	registration form code start-->
 		<div class="container">
-
 			<div class="row">
 				<div
 					class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 					<form role="form" th:action="@{/register}" th:object="${user}"
 						method="post">
-
 						<div th:if="${message != null}" class="alert alert-success">
 
 							<strong>Registration Successfully!</strong>
 						</div>
-
-						<h2>
+					<h2>
 							Please Sign Up <small>It's free and always will be.</small>
 						</h2>
 						<hr class="colorgraph">
@@ -58,9 +53,8 @@
 										placeholder="Please Entere Confirm Password" tabindex="6">
 								</div>
 							</div>
-							<input type="text" th:field="*{role}" th:value="${roless}"> 
-							<input
-								type="hidden" th:field="*{active}" th:value="false" value="false">
+							
+							
 						</div>
 						<div class="row">
 							<div class="col-xs-4 col-sm-3 col-md-3">

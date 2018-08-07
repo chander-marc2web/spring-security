@@ -32,18 +32,17 @@ public class WelcomeController {
 	@GetMapping("/signup")
 	public ModelAndView goToRegister(@RequestParam(value="message",required=false) String message) {
 		User user = new User();
-		
 		ModelAndView modelAndView = new ModelAndView("register");
 		modelAndView.addObject("user", user);
 		if(message!=null)
-		modelAndView.addObject("message", message);
-		modelAndView.addObject("roless", ROLES.USER);
-		
+		modelAndView.addObject("message", message);	
 		return modelAndView;
 	}
 	
 	@PostMapping("/register")
 	public String saveUser(User user) {
+		user.setActive(false);
+		user.setRole(ROLES.USER.toString());
 		userRepo.save(user);
 		System.out.println(user.toString());
 		return "redirect:/signup?message=sucess";
