@@ -59,11 +59,27 @@
 					<li><a href="#">Page 1</a></li>
 					<li><a href="#">Page 2</a></li>
 				</ul>
+
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#" th:href="@{/signup}"><span
 							class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 					<li><a href="#" th:href="@{/login}"><span
 							class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<li class="dropdown"><a href="javascript:void(0)"
+						class="btn btn-default dropdown-toggle" id="dropDownMenu"
+						data-toggle="dropdown"> 
+						Full name<span class="caret"></span>
+						</a>
+						
+						<ul class="dropdown-menu">
+						<li><a th:href="@{/index}">HOME</a></li>
+						<li class="divider" role="seperator"> </li>
+						<li><a th:href="@{/logout?message=success}">Logout</a></li>
+						
+						</ul>
+						
+						</li>
+						
 				</ul>
 			</div>
 		</nav>

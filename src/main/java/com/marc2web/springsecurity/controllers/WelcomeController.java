@@ -54,7 +54,7 @@ public class WelcomeController {
 		return "/error/access-denied";
 	}
 	
-	@GetMapping("/user")
+	@GetMapping(value= {"/user","/user/home","/user/index"})
 	public String userIndex() {
 		return  "user/index";
 	}
