@@ -1,13 +1,9 @@
 package com.marc2web.springsecurity.dto;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +17,12 @@ public class User {
 	private String email;
 	private String userName;
 	private String password;
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", userName=" + userName + ", password=" + password + ", active="
+				+ active + ", role=" + role + "]";
+	}
+
 	private Boolean active;
 	private String role;
 

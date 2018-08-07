@@ -14,4 +14,6 @@ public class SpringMVCConfiguration implements WebMvcConfigurer{
 		return new BCryptPasswordEncoder();
 	}
 	
+	
+	
 }

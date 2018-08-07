@@ -1,23 +1,62 @@
 package com.marc2web.springsecurity.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.marc2web.springsecurity.dto.ROLES;
+import com.marc2web.springsecurity.dto.User;
+import com.marc2web.springsecurity.repositeries.UserRepo;
 
 @Controller
-@RequestMapping("/")
+
 public class WelcomeController {
 
-	@RequestMapping(value={"/","/index","/home","/logout"})
-	public String goToHome(@RequestParam(value="message",required=false) String message){
-		
-	return "index";	
+	@Autowired
+	UserRepo userRepo;
+
+	@RequestMapping(value = {"/","/index", "/home" })
+	public String goToHome(@RequestParam(value = "message", required = false) String message) {
+
+		return "index";
 	}
-	
-	@RequestMapping("/login")
-	public String goToLogin(){
+
+	@GetMapping("/login")
+	public String goToLogin() {
 		return "login";
 	}
+	@GetMapping("/signup")
+	public ModelAndView goToRegister(@RequestParam(value="message",required=false) String message) {
+		User user = new User();
+		
+		ModelAndView modelAndView = new ModelAndView("register");
+		modelAndView.addObject("user", user);
+		if(message!=null)
+		modelAndView.addObject("message", message);
+		modelAndView.addObject("roless", ROLES.USER);
+		
+		return modelAndView;
+	}
 	
+	@PostMapping("/register")
+	public String saveUser(User user) {
+		userRepo.save(user);
+		System.out.println(user.toString());
+		return "redirect:/signup?message=sucess";
+	}
 	
+
+	@GetMapping("/access-denied")
+	public String accessDenied() {
+		return "/error/access-denied";
+	}
+	
+	@GetMapping("/user")
+	public String userIndex() {
+		return  "user/index";
+	}
 }
