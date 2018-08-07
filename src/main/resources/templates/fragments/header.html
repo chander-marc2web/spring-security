@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+
+</head>
+
+<body>
+
+	<th:block th:fragment="header">
+
+		<div th:fragment="header-css">
+			<!-- this is header-css -->
+			<link rel="stylesheet"
+				href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+			<link rel="stylesheet" th:href="@{/css/mycss.css}"
+				href="css/main.css" />
+
+
+
+			<!-- 				for registration form -->
+			<link
+				href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+				rel="stylesheet" id="bootstrap-css">
+			<script
+				src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+			<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+		</div>
+
+
+
+		<!--     <nav class="navbar navbar-inverse navbar-static-top"> -->
+		<!--         <div class="container"> -->
+		<!--             <div class="navbar-header"> -->
+		<!--                 <a class="navbar-brand" th:href="@{/}"> -->
+		<!--                     <img th:src="@{/img/logo.png}" alt="memorynotfound logo"/> -->
+		<!--                 </a> -->
+		<!--             </div> -->
+		<!--             <div id="navbar" class="collapse navbar-collapse"> -->
+		<!--                 <ul class="nav navbar-nav"> -->
+		<!--                     <li class="active"> -->
+		<!--                         <a th:href="@{/}">Home</a> -->
+		<!--                     </li> -->
+		<!--                 </ul> -->
+		<!--             </div> -->
+		<!--         </div> -->
+		<!--     </nav> -->
+
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">WebSiteName</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#">Page 1</a></li>
+					<li><a href="#">Page 2</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" th:href="@{/signup}"><span
+							class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+					<li><a href="#" th:href="@{/login}"><span
+							class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</ul>
+			</div>
+		</nav>
+
+	</th:block>
+</body>
+</html>
