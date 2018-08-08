@@ -191,8 +191,16 @@ $(function() {
 								: 'You want to de-activate the User?';
 						var checked = this.checked;
 						var checkbox = $(this);
-						
-
+						var url;
+						var role = $('.switch input[type="checkbox"]').val();
+							if(role=="SUPER_USER")
+								url  = '/adminstrator/user/'+
+								+ checkbox.prop('value')
+								+ '/activation'
+								else
+									url='/admin/user/'+
+									+ checkbox.prop('value')
+									+ '/activation'
 						var confirmed = window.confirm(dText);
 				
 						if (confirmed) {
