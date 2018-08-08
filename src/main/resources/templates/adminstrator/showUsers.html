@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+	<div th:replace="fragments/header::header" />
+
+	<div layout:fragment="content" th:remove="tag">
+
+
+		<div class="container">
+
+			<div class="alert alert-info" th:if="${message!=null}">
+				<strong th:text="${message}"></strong>				
+			</div>
+
+			<h2>Striped Rows</h2>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>User Name</th>
+						<th>User Password</th>
+						<th>User Role</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+
+
+					<tr th:each="user:${users}">
+						<td th:text="${user.userName}"></td>
+						<td th:text="${user.password}"></td>
+						<td th:text="${user.role}"></td>
+						<td><a th:href="@{/adminstrator/delete/{id}/user(id=${user.id})}"
+							class="btn btn-lg btn-danger">DELETE</a></td>
+				<td><a th:href="@{/adminstrator/update/{id}/user(id=${user.id})}"
+							class="btn btn-lg btn-warning">UPDATE</a></td>
+					</tr>
+
+
+
+				</tbody>
+			</table>
+		</div>
+
+
+	</div>
+
+	<div th:replace="fragments/footer::footer" />
+</body>
+</html>

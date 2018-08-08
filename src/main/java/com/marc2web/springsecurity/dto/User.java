@@ -5,6 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
@@ -14,9 +18,16 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 
 	private Integer id;
+	@NotEmpty(message="Email Can not be empty!")
+	@Email(message="Please Enter a valid email address!")
+	//@Pattern(regexp="^([a-zA-Z0-9\\-\\.\\_]+)'+'(\\@)([a-zA-Z0-9\\-\\.]+)'+'(\\.)([a-zA-Z]{2,4})$",message="please enter valid email address!")
 	private String email;
+	@Size(max=20,min=5,message="User Name length should be in between 5-20")
 	private String userName;
+	@Size(min=8,message="Password length should be in between 8-16 characters!")
+	//@Pattern(regexp="[0-9]",message="please enter valid password! Contains numbers,alphabates and special characters!")
 	private String password;
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", userName=" + userName + ", password=" + password + ", active="
@@ -24,6 +35,7 @@ public class User {
 	}
 
 	private Boolean active;
+	
 	private String role;
 
 	

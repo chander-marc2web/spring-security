@@ -1,7 +1,12 @@
 package com.marc2web.springsecurity.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,17 +23,25 @@ public class WelcomeController {
 
 	@Autowired
 	UserRepo userRepo;
-
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@RequestMapping(value = {"/","/index", "/home" })
 	public String goToHome(@RequestParam(value = "message", required = false) String message) {
 
 		return "index";
 	}
 
-	@GetMapping("/login")
-	public String goToLogin() {
+	@GetMapping(value= {"/login"})
+	public String goToLogin(@RequestParam(value="error",required=false) String message,Model model) {
+		if(message!=null && message.equals("true")) {
+			model.addAttribute("message", "Please Enter Valid Credentials!");
+		}
 		return "login";
 	}
+	
+	
+	
 	@GetMapping("/signup")
 	public ModelAndView goToRegister(@RequestParam(value="message",required=false) String message) {
 		User user = new User();
@@ -40,12 +53,21 @@ public class WelcomeController {
 	}
 	
 	@PostMapping("/register")
-	public String saveUser(User user) {
-		user.setActive(false);
+	public ModelAndView saveUser(@Valid User user,BindingResult bindingResult) {
+		
+		if(bindingResult.hasErrors()) {
+			ModelAndView modelAndView = new ModelAndView("register");
+			modelAndView.addObject("user", user);
+			return modelAndView;
+		}
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		user.setUserName(user.getUserName().toLowerCase());
+		user.setEmail(user.getEmail().toLowerCase());
 		user.setRole(ROLES.USER.toString());
+		user.setactive(true);
 		userRepo.save(user);
 		System.out.println(user.toString());
-		return "redirect:/signup?message=sucess";
+		return new ModelAndView("redirect:/signup").addObject("message", "success");
 	}
 	
 
@@ -57,5 +79,10 @@ public class WelcomeController {
 	@GetMapping(value= {"/user","/user/home","/user/index"})
 	public String userIndex() {
 		return  "user/index";
+	}
+	
+	@GetMapping(value= {"/adminstrator/index","/adminstrator","/adminstrator/home"})
+	public String adminIndex() {
+		return "adminstrator/index";
 	}
 }

@@ -74,6 +74,12 @@
 			<artifactId>jquery</artifactId>
 			<version>3.2.1</version>
 		</dependency>
+
+		<!-- optional, it brings userful tags to display spring security stuff -->
+	<dependency>
+		<groupId>org.thymeleaf.extras</groupId>
+		<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+	</dependency>
 	</dependencies>
 
 	<build>

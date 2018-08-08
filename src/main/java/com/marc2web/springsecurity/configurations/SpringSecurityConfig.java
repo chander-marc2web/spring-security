@@ -13,10 +13,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.marc2web.springsecurity.components.SimpleAuthenticationSuccessHandler;
+
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	SimpleAuthenticationSuccessHandler simpleAuthenticationSuccessHandler;
+	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -53,9 +58,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/login").permitAll()
 			.antMatchers("/registration").permitAll()
 			.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-			.authenticated().and().csrf().disable().formLogin()
+			.authenticated().and().csrf().disable().formLogin().successHandler(simpleAuthenticationSuccessHandler)
 			.loginPage("/login").failureUrl("/login?error=true")
-			.defaultSuccessUrl("/admin")
 			.usernameParameter("email")
 			.passwordParameter("password")
 			.and().logout()

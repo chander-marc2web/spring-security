@@ -18,18 +18,18 @@
    <h2>Login</h2>
    <p>Please enter your email and password</p>
    </div>
-    <form id="Login" th:action="@{/login}" method="POST">
+    <form id="Login" name="login" th:action="@{/login}" method="POST">
 
         <div class="form-group">
 
-
-            <input type="email" class="form-control" id="inputEmail" placeholder="Email Address">
+			<label th:text="${message !=null || message!=''}?${message}:''"></label>
+            <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email Address">
 
         </div>
 
         <div class="form-group">
 
-            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+            <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
 
         </div>
         <div class="forgot">
@@ -37,7 +37,7 @@
 </div>
         <button type="submit" class="btn btn-primary">Login</button><br><br><br>
          <a th:href="@{/signup}"  class="btn btn-lg btn-success">Sign Up</a>
-
+	
     </form>
     </div>
  <p><a href="/" th:href="@{/}">Back to home page</a></p>

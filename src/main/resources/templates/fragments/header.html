@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 
 
@@ -24,11 +25,10 @@
 			<link
 				href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
 				rel="stylesheet" id="bootstrap-css">
-			<script
-				src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-			<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 
 		</div>
+
 
 
 
@@ -52,7 +52,7 @@
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">WebSiteName</a>
+					<a class="navbar-brand" href="#" th:href="@{/index}">WebSiteName</a>
 				</div>
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#">Home</a></li>
@@ -60,26 +60,34 @@
 					<li><a href="#">Page 2</a></li>
 				</ul>
 
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#" th:href="@{/signup}"><span
+
+				<ul class="nav navbar-nav navbar-right"
+					>
+
+
+					<li sec:authorize="!(isAuthenticated())"><a href="#" th:href="@{/signup}"><span
 							class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-					<li><a href="#" th:href="@{/login}"><span
+					<li sec:authorize="!(isAuthenticated())"><a href="#" th:href="@{/login}"><span
 							class="glyphicon glyphicon-log-in"></span> Login</a></li>
-					<li class="dropdown"><a href="javascript:void(0)"
+
+
+
+					<li sec:authorize="isAuthenticated()" class="dropdown"><a href="javascript:void(0)"
 						class="btn btn-default dropdown-toggle" id="dropDownMenu"
-						data-toggle="dropdown"> 
-						Full name<span class="caret"></span>
-						</a>
-						
+						data-toggle="dropdown"> <span sec:authorize="hasRole('ROLE_ADMIN')"></span><span sec:authentication="name"></span><span class="caret"></span>
+					</a>
+
 						<ul class="dropdown-menu">
-						<li><a th:href="@{/index}">HOME</a></li>
-						<li class="divider" role="seperator"> </li>
-						<li><a th:href="@{/logout?message=success}">Logout</a></li>
 						
-						</ul>
-						
-						</li>
-						
+							<li><a  sec:authorize="hasAuthority('SUPER_USER')" th:href="@{/adminstrator/index}">HOME</a></li>
+						<li><a  sec:authorize="hasAuthority('SUPER_USER')" th:href="@{/adminstrator/showUsers}">All Users</a></li>
+							<li><a  sec:authorize="hasAuthority('USER')" th:href="@{/user/index}">HOME</a></li>
+							<li class="divider" role="seperator"></li>
+							<li><a th:href="@{/logout?message=success}">Logout</a></li>
+
+						</ul></li>
+
+
 				</ul>
 			</div>
 		</nav>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<th:block th:replace="fragments/header :: header" />
+
+	<div layout:fragment="content" th:remove="tag">
+
+
+		<div class="container">
+
+
+			<div class="container">
+				<div class="row">
+					<div
+						class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-3">
+						<form role="form" th:action="@{/adminstrator/update/user}" th:object="${user}"
+							method="post" name="registration">
+							<div th:if="${message != null}" class="alert alert-success">
+
+								<strong th:text="${message}"></strong>
+							</div>
+							<h2>
+								Update <small>Here</small>
+							</h2>
+							<hr class="colorgraph">
+
+							<div class="form-group">
+								<label for="display_name">User Name :</label> <input type="text"
+									th:field="*{userName}" name="userName" id="display_name"
+									class="form-control input-lg" placeholder="Display Name"
+									tabindex="3" required="required"> <label
+									th:if="${#fields.hasErrors('userName')}"
+									th:errors="*{userName}" th:class="error"></label>
+							</div>
+							<div class="form-group">
+								<label for="email">Email Address :</label> <input type="email"
+									th:field="*{email}" name="email" id="email"
+									class="form-control input-lg"
+									placeholder="Please Email Address" tabindex="4"
+									required="required"> <label
+									th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+									th:class="error"></label>
+							</div>
+
+							<div class="form-group">
+								<label for="role">Role :</label> 
+								
+								<select class="form-control">
+									<option
+										th:each="state : ${T(com.marc2web.springsecurity.dto.ROLES).values()}"
+										th:value="${state}" th:text="${state}"></option>
+								</select>
+								
+								 <label th:if="${#fields.hasErrors('email')}"
+									th:errors="*{email}" th:class="error"></label>
+							</div>
+
+							<input type="hidden" th:field="*{id}" th:value="${user.id}">
+							<input type="hidden" th:field="*{password}" th:value="${user.password}">
+							<input type="hidden" th:field="*{active}" th:value="${user.active}">
+
+							<hr class="colorgraph">
+							<div class="row">
+								<div class="col-xs-12 col-md-6">
+									<input type="submit" value="Update"
+										class="btn btn-primary btn-block btn-lg" tabindex="7">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- 	registration form code finish-->
+
+
+		</div>
+	</div>
+
+
+	<th:block th:replace="fragments/footer :: footer" />
+
+</body>
+</html>

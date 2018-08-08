@@ -1,6 +1,6 @@
 
 
-//for registration form
+//for registration form designing js
 $(function () {
     $('.button-checkbox').each(function () {
 
@@ -65,4 +65,110 @@ $(function () {
         }
         init();
     });
+});
+
+
+// registration form validation
+
+$(function(){
+	
+	$.validator.addMethod('strongPassword' , function(value,element){
+		return this.optional(element)||value.length>=8 && 	/\d/.test(value) && /[a-z]/.test(value);
+	},'Your Password must be at least 8 characters long and contain at least one number and one character!')
+		
+	
+	$.validator.addMethod('noWhiteSpace' ,function(value,element){
+		return this.optional(element) || /^\S+$/i.test(value);
+	},'White Spaces are not allowed!')
+	
+	$("form[name='registration']").validate({
+		
+		rules:{
+			userName:{
+				required:true,
+				noWhiteSpace:true
+				},
+			email:{
+				required:true,
+				email:true
+			},
+			password:{
+				required:true,
+				strongPassword:true,
+				noWhiteSpace:true
+				
+			},
+	password_confirmation:{
+		required:true,
+		equalTo:"#password"
+		}
+	
+	},
+	
+	messages:{
+		
+		userName:{
+			required:'userName is mendatory!'
+		},
+		password:{
+			required:'Please Enter Password!'
+		},
+	password_confirmation:{
+		required:'Please re-enter the password!',
+			equalTo:'password not matched!'
+	},
+	email:{
+		required:'please enter email!',
+		email:'Enter a valid email address!'	
+	}
+		
+	}
+		
+	});	
+});
+
+
+// login form validation
+
+$(function(){
+	
+	$.validator.addMethod('strongPassword' , function(value,element){
+		return this.optional(element)||value.length>=8 && 	/\d/.test(value) && /[a-z]/.test(value);
+	},'Your Password must be at least 8 characters long and contain at least one number and one character!')
+		
+	
+	$.validator.addMethod('noWhiteSpace' ,function(value,element){
+		return this.optional(element) || /^\S+$/i.test(value);
+	},'White Spaces are not allowed!')
+	
+$("form[name='login']").validate({
+		
+		rules:{
+			
+			email:{
+				required:true,
+				email:true
+			},
+			password:{
+				required:true,
+				strongPassword:true,
+				noWhiteSpace:true
+				
+			}
+		},
+
+	messages:{
+			
+		email:{
+			required:'please enter email!',
+			email:'Enter a valid email address!'	
+		},
+		password:{
+			required:'Please Enter Password!'
+		}		
+	
+	}
+
+});
+	
 });
