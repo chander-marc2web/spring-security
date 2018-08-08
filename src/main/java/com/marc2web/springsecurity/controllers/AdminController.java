@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.marc2web.springsecurity.dto.User;
@@ -34,7 +35,7 @@ public class AdminController {
 	public String deleteUser(@PathVariable("id") Integer id) {
 		
 		userRepo.deleteById(id);
-		return "redirect:/admistrator/showUsers?message=delete";
+		return "redirect:/adminstrator/showUsers?message=delete";
 	}
 	
 	@GetMapping("/update/{id}/user")
@@ -52,8 +53,16 @@ public class AdminController {
 		oldUserData.setUserName(user.getUserName());
 		oldUserData.setRole(user.getRole());
 		userRepo.save(oldUserData);
-		return "redirect:/admistrator/showUsers?message=update";
+		return "redirect:/adminstrator/showUsers?message=update";
 	}
 	
+	@GetMapping("/user/{id}/activation")
+	@ResponseBody
+	public String setUserActivation(@PathVariable("id") Integer id) {
+		User user = userRepo.getOne(id);
+		user.setActive(!(user.getactive()));
+		userRepo.save(user);
+		return user.getactive()?"User successfully activated!":"User successfully deactivated!";
+	}
 	
 }

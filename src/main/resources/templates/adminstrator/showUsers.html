@@ -15,7 +15,9 @@
 		<div class="container">
 
 			<div class="alert alert-info" th:if="${message!=null}">
-				<strong th:text="${message}"></strong>				
+				<strong th:if="${message == 'delete'}">User Updated
+					Successfully!</strong> <strong th:if="${message == 'update'}">User
+					Updated Successfully!</strong>
 			</div>
 
 			<h2>Striped Rows</h2>
@@ -27,6 +29,7 @@
 						<th>User Role</th>
 						<th></th>
 						<th></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -36,10 +39,18 @@
 						<td th:text="${user.userName}"></td>
 						<td th:text="${user.password}"></td>
 						<td th:text="${user.role}"></td>
-						<td><a th:href="@{/adminstrator/delete/{id}/user(id=${user.id})}"
+						<td><label class="switch"> <input type="checkbox"
+								th:checked="${user.active}" th:value="${user.id}"> <span
+								class="slider round"></span>
+						</label></td>
+						<div sec:authorize="hasAuthority('SUPER_USER')">
+						<td><a
+							th:href="@{/adminstrator/delete/{id}/user(id=${user.id})}"
 							class="btn btn-lg btn-danger">DELETE</a></td>
-				<td><a th:href="@{/adminstrator/update/{id}/user(id=${user.id})}"
+						<td><a
+							th:href="@{/adminstrator/update/{id}/user(id=${user.id})}"
 							class="btn btn-lg btn-warning">UPDATE</a></td>
+						</div>
 					</tr>
 
 

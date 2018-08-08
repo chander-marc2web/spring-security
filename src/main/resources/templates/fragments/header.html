@@ -81,6 +81,7 @@
 						
 							<li><a  sec:authorize="hasAuthority('SUPER_USER')" th:href="@{/adminstrator/index}">HOME</a></li>
 						<li><a  sec:authorize="hasAuthority('SUPER_USER')" th:href="@{/adminstrator/showUsers}">All Users</a></li>
+						<li><a  sec:authorize="hasAuthority('ADMIN')" th:href="@{/adminstrator/showUsers}">All Users</a></li>
 							<li><a  sec:authorize="hasAuthority('USER')" th:href="@{/user/index}">HOME</a></li>
 							<li class="divider" role="seperator"></li>
 							<li><a th:href="@{/logout?message=success}">Logout</a></li>

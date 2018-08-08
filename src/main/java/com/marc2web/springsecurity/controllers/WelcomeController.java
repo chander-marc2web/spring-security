@@ -63,8 +63,8 @@ public class WelcomeController {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		user.setUserName(user.getUserName().toLowerCase());
 		user.setEmail(user.getEmail().toLowerCase());
-		user.setRole(ROLES.USER.toString());
-		user.setactive(true);
+		user.setRole(ROLES.ADMIN.toString());
+		user.setactive(false);
 		userRepo.save(user);
 		System.out.println(user.toString());
 		return new ModelAndView("redirect:/signup").addObject("message", "success");
