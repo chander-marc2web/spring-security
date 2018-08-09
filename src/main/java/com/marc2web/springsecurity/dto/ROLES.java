@@ -5,5 +5,5 @@ import org.springframework.context.annotation.Bean;
 
 public enum ROLES {
 
-	USER,ADMIN,SUPER_USER
+	ROLE_USER,ROLE_ADMIN,ROLE_SUPER_USER
 }

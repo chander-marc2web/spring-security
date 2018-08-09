@@ -79,11 +79,11 @@
 
 						<ul class="dropdown-menu">
 						
-							<li><a  sec:authorize="hasAuthority('SUPER_USER')" th:href="@{/adminstrator/index}">HOME</a></li>
+							<li><a  sec:authorize="hasAuthority('ROLE_SUPER_USER')" th:href="@{/adminstrator/index}">HOME</a></li>
 							<li><input type="hidden" name="role" th:value="${userModel.role}"></li>
-						<li><a  sec:authorize="hasAuthority('SUPER_USER')" th:href="@{/adminstrator/showUsers}">All Users</a></li>
-						<li><a  sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/showUsers}">All Users</a></li>
-							<li><a  sec:authorize="hasAuthority('USER')" th:href="@{/user/index}">HOME</a></li>
+						<li><a  sec:authorize="hasAuthority('ROLE_SUPER_USER')" th:href="@{/adminstrator/showUsers}">All Users</a></li>
+						<li><a  sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/admin/showUsers}">All Users</a></li>
+							<li><a  sec:authorize="hasAuthority('ROLE_USER')" th:href="@{/user/index}">HOME</a></li>
 							<li class="divider" role="seperator"></li>
 							<li><a th:href="@{/logout?message=success}">Logout</a></li>
 

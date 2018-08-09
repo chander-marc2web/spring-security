@@ -3,6 +3,7 @@ package com.marc2web.springsecurity.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,7 @@ public class WelcomeController {
 		return "index";
 	}
 
+	
 	@GetMapping(value= {"/login"})
 	public String goToLogin(@RequestParam(value="error",required=false) String message,Model model) {
 		if(message!=null && message.equals("true")) {
@@ -52,6 +54,8 @@ public class WelcomeController {
 		return modelAndView;
 	}
 	
+	
+	
 	@PostMapping("/register")
 	public ModelAndView saveUser(@Valid User user,BindingResult bindingResult) {
 		
@@ -63,7 +67,7 @@ public class WelcomeController {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		user.setUserName(user.getUserName().toLowerCase());
 		user.setEmail(user.getEmail().toLowerCase());
-		user.setRole(ROLES.ADMIN.toString());
+		user.setRole(ROLES.ROLE_ADMIN.toString());
 		user.setactive(false);
 		userRepo.save(user);
 		System.out.println(user.toString());
@@ -82,7 +86,11 @@ public class WelcomeController {
 	}
 	
 	@GetMapping(value= {"/adminstrator/index","/adminstrator","/adminstrator/home"})
-	public String adminIndex() {
+	public String adminstratorIndex() {
 		return "adminstrator/index";
+	}
+	@GetMapping(value= {"/admin/index","/admin","/admin/home"})
+	public String adminIndex() {
+		return "admin/index";
 	}
 }

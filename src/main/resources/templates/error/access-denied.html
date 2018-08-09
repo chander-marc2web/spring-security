@@ -9,6 +9,10 @@
 <div layout:fragment="content" th:remove="tag">
     <h1>Access denied</h1>
     <p><a href="/" th:href="@{/}">Back to home page</a></p>
+    <span sec:authentication="name">Bob</span>
+    <div sec:authorize="hasRole('SUPER_USER')">
+  This content is only shown to users.
+</div>
 </div>
 </body>
 </html>

@@ -27,8 +27,11 @@ public class GlobalController {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			
 			if(authentication.isAuthenticated()) {
+				
 				User user = userRepo.findByEmail(authentication.getName());
 				if(user!=null) {
+						session.setAttribute("userModel", user);
+						System.out.println(session.getAttribute("userModel").toString());
 						return user;
 				}
 			}

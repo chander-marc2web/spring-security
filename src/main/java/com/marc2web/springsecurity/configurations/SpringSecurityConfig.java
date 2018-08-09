@@ -21,7 +21,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	SimpleAuthenticationSuccessHandler simpleAuthenticationSuccessHandler;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -36,39 +36,41 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().usersByUsernameQuery(usersQuery).authoritiesByUsernameQuery(rolesQuery).dataSource(dataSource)
-		.passwordEncoder(bCryptPasswordEncoder);
+		auth.jdbcAuthentication().usersByUsernameQuery(usersQuery).authoritiesByUsernameQuery(rolesQuery)
+				.dataSource(dataSource).passwordEncoder(bCryptPasswordEncoder);
+
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		  web
-	       .ignoring()
-	       .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**");	
+		web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.
-		authorizeRequests()
-			.antMatchers("/**").permitAll()
-			.antMatchers("/resources/**","/static/**","/js/**","/img/**","/css/**").permitAll()
-			.antMatchers("/index","/home","/aboutus","/contactus").permitAll()
-			.antMatchers("/login").permitAll()
-			.antMatchers("/registration").permitAll()
-			.antMatchers("/user/**").access("hasRole('USER')")
-			.antMatchers("/admin/**").access("hasRole('ADMIN')")
-			.antMatchers("/adminstrator/**").access("hasRole('SUPER_USER')").anyRequest()
-			.authenticated().and().csrf().disable().formLogin().successHandler(simpleAuthenticationSuccessHandler)
-			.loginPage("/login").failureUrl("/login?error=true")
-			.usernameParameter("email")
-			.passwordParameter("password")
-			.and().logout()
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/").and().exceptionHandling()
-			.accessDeniedPage("/access-denied");	
+		http.authorizeRequests()
+				//Ma
+	
+
+				.antMatchers("/resources/**", "/static/**", "/js/**", "/img/**", "/css/**").permitAll()
+				.antMatchers("/index", "/home", "/aboutus", "/contactus", "/login","/signup", "/registration").permitAll()
+
+				.antMatchers("/adminstrator/**").access("hasRole('SUPER_USER')")
+				.antMatchers("/admin/**").access("hasRole('ADMIN')")
+				.antMatchers("/user/**").hasAnyRole("USER").anyRequest().authenticated()
+
 		
+		 .and().csrf().disable().formLogin().successHandler(
+		 simpleAuthenticationSuccessHandler)
+		 .loginPage("/login").failureUrl("/login?error=true").usernameParameter(
+		 "email")
+		 .passwordParameter("password").and().logout().logoutRequestMatcher(new
+		 AntPathRequestMatcher("/logout"))
+		 .logoutSuccessUrl("/").and().exceptionHandling().accessDeniedPage(
+		 "/access-denied");
+		
+
 	}
 
 }

@@ -27,10 +27,12 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 		// TODO Auto-generated method stub
 		
 			Collection<?extends GrantedAuthority>	authorities= authentication.getAuthorities();
+			
+			System.err.println(authorities.size());
 			authorities.forEach(authority ->{
 				
-				System.err.println("=------------i am here -------");
-				if(authority.getAuthority().equals(ROLES.USER.toString())) {
+				System.err.println("=------------i am here -------"+authority);
+				if(authority.getAuthority().equals(ROLES.ROLE_USER.toString())) {
 					try {
 						redirectStrategy.sendRedirect(request, response, "/user/index");
 					} catch (Exception e) {
@@ -38,9 +40,17 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 						e.printStackTrace();
 					}
 				}
-				else if(authority.getAuthority().equals(ROLES.SUPER_USER.toString()) || authority.getAuthority().equals(ROLES.ADMIN.toString())) {
+				else if(authority.getAuthority().equals(ROLES.ROLE_SUPER_USER.toString())) {
 					try {
 						redirectStrategy.sendRedirect(request, response, "/adminstrator/index");
+					} catch (Exception e2) {
+						// TODO: handle exception
+						e2.printStackTrace();
+					}
+				}
+				else if (authority.getAuthority().equals(ROLES.ROLE_ADMIN.toString()) ) {
+					try {
+						redirectStrategy.sendRedirect(request, response, "/admin/index");
 					} catch (Exception e2) {
 						// TODO: handle exception
 						e2.printStackTrace();

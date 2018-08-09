@@ -20,7 +20,7 @@
 					Updated Successfully!</strong>
 			</div>
 
-		<h2>Users</h2><hr class="colorgraph">
+			<h2>Users</h2><hr class="colorgraph">
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -43,14 +43,14 @@
 								th:checked="${user.active}" th:value="${user.id}"> <span
 								class="slider round"></span>
 						</label></td>
-						<div sec:authorize="hasAuthority('ROLE_SUPER_USER')">
-						<td><a
-							th:href="@{/adminstrator/delete/{id}/user(id=${user.id})}"
-							class="btn btn-lg btn-danger">DELETE</a></td>
-						<td><a
-							th:href="@{/adminstrator/update/{id}/user(id=${user.id})}"
-							class="btn btn-lg btn-warning">UPDATE</a></td>
-						</div>
+<!-- 						<div sec:authorize="hasAuthority('ROLE_SUPER_USER')"> -->
+<!-- 						<td><a -->
+<!-- 							th:href="@{/adminstrator/delete/{id}/user(id=${user.id})}" -->
+<!-- 							class="btn btn-lg btn-danger">DELETE</a></td> -->
+<!-- 						<td><a -->
+<!-- 							th:href="@{/adminstrator/update/{id}/user(id=${user.id})}" -->
+<!-- 							class="btn btn-lg btn-warning">UPDATE</a></td> -->
+<!-- 						</div> -->
 					</tr>
 
 
